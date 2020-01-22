@@ -23,7 +23,7 @@ const Platform = (props: any) => {
     <mesh
       ref={ref}
       {...props}
-      scale={active ? [1.5, 1.5, 1.5] : [10, 10, 10]}
+      scale={active ? [1.5, 1.5, 1.5] : [100, 100, 100]}
       position={[0, 0, 0]}
       // rotation={[-1.3, 0, -0.2]}
       // rotation={[-1.2, 0, 0.78]}
@@ -35,7 +35,7 @@ const Platform = (props: any) => {
       <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
       <meshBasicMaterial
         attach="material"
-        color={hovered ? "grey" : "rgba(160,160,160)"}
+        color={hovered ? "rgba(156,156,156)" : "rgba(160,160,160)"}
       />
     </mesh>
   );

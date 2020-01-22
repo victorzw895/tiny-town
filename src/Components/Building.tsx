@@ -34,12 +34,28 @@ const BuildingA = (props: any) => {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
   // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
+
+  const getBuilding = () => {
+    let color;
+    switch (props.buildingType) {
+      case "A":
+        color = "aliceblue";
+        break;
+      case "B":
+        color = "orange";
+        break;
+      default:
+        color = "purple";
+    }
+    return color;
+  };
+
   return (
     <mesh
       ref={ref}
       {...props}
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-      position={[0, 1, 0]}
+      position={props.position}
       // rotation={[-1.27, 0, 0.7]}
       rotation={[-1.2, 0, 0.78]}
       onClick={e => setActive(!active)}
@@ -49,7 +65,8 @@ const BuildingA = (props: any) => {
       <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
       <meshStandardMaterial
         attach="material"
-        color={hovered ? "yellow" : "orange"}
+        // color={hovered ? "yellow" : "orange"}
+        color={getBuilding()}
       />
     </mesh>
   );

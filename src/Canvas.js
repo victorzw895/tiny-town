@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Canvas as C, extend, useFrame, useThree } from "react-three-fiber";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 
-import BuildingA from "./Components/BuildingA";
+import Building from "./Components/Building";
 import Platform from "./Components/Platform";
 
 extend({ MapControls });
@@ -39,9 +39,11 @@ const Canvas = () => {
         <p>NAV BAR</p>
       </div>
       <C
+        orthographic
+        camera={{ position: [0, 0, 50], zoom: 25, up: [0, 0, 1], far: 10000 }}
         style={{ background: "lightblue" }}
         shadowMap
-        camera={{ position: [0, 0, 15] }}
+        // camera={{ position: [0, 0, 15] }}
       >
         <pointLight intensity={20} position={[-10, -25, -10]} color="#200f20" />
         <spotLight
@@ -52,8 +54,9 @@ const Canvas = () => {
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         />
-        {/* <fog attach="fog" args={["#090b1f", 0, 25]} /> */}
-        <BuildingA position={[0, 0, 0]} />
+        <fog attach="fog" args={["#090b1f", 0, 200]} />
+        <Building position={[0, 1, 0]} buildingType={"A"} />
+        <Building position={[5, 1, 0]} buildingType={"B"} />
         {/* <BuildingA position={[1.2, 0, 0]} /> */}
         <Platform position={[0, 0, 0]} />
         <Controls
