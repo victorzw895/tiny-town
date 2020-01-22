@@ -39,8 +39,9 @@ const BuildingA = (props: any) => {
       ref={ref}
       {...props}
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-      position={[0, 0, 0]}
-      rotation={[-1.27, 0, 0.7]}
+      position={[0, 1, 0]}
+      // rotation={[-1.27, 0, 0.7]}
+      rotation={[-1.2, 0, 0.78]}
       onClick={e => setActive(!active)}
       onPointerOver={e => setHover(true)}
       onPointerOut={e => setHover(false)}

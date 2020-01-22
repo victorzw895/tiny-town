@@ -15,9 +15,9 @@ const Controls = props => {
       ref={ref}
       args={[camera, gl.domElement]}
       {...props}
-      enableDamping
-      dampingFactor={0.1}
-      rotateSpeed={0.5}
+      // enableDamping
+      // dampingFactor={0.1}
+      // rotateSpeed={0.5}
     />
   );
 };
@@ -49,9 +49,9 @@ const Canvas = () => {
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         />
-        <fog attach="fog" args={["#090b1f", 0, 25]} />
-        <BuildingA position={[-1.2, 0, 0]} />
-        <BuildingA position={[1.2, 0, 0]} />
+        {/* <fog attach="fog" args={["#090b1f", 0, 25]} /> */}
+        <BuildingA position={[0, 0, 0]} />
+        {/* <BuildingA position={[1.2, 0, 0]} /> */}
         <Platform position={[0, 0, 0]} />
         <Controls
           // autoRotate
@@ -60,8 +60,8 @@ const Canvas = () => {
           enableDamping
           dampingFactor={0.5}
           rotateSpeed={1}
-          // maxPolarAngle={Math.PI / 2}
-          // minPolarAngle={Math.PI / 2}
+          maxPolarAngle={Math.PI / 1.1}
+          minPolarAngle={Math.PI / 2}
         />
       </C>
     </div>
