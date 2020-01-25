@@ -39,7 +39,7 @@ const BuildingA = (props: any) => {
     let color;
     switch (props.buildingType) {
       case "A":
-        color = "aliceblue";
+        color = "violet";
         break;
       case "B":
         color = "orange";
@@ -54,10 +54,10 @@ const BuildingA = (props: any) => {
     <mesh
       ref={ref}
       {...props}
-      scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+      scale={active ? [3, 3, 3] : [2, 2, 2]}
       position={props.position}
       // rotation={[-1.27, 0, 0.7]}
-      rotation={[-1.2, 0, 0.78]}
+      // rotation={[-1.2, 0, 0.78]}
       onClick={e => setActive(!active)}
       onPointerOver={e => setHover(true)}
       onPointerOut={e => setHover(false)}

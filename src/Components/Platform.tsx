@@ -2,9 +2,9 @@ import React, { useRef, useState } from "react";
 import { useThree, useFrame } from "react-three-fiber";
 
 const Platform = (props: any) => {
-  const { size, viewport } = useThree();
+  // const { size, viewport } = useThree();
 
-  const aspect = size.width / viewport.width;
+  // const aspect = size.width / viewport.width;
 
   const ref: any | undefined = useRef();
 
@@ -27,7 +27,7 @@ const Platform = (props: any) => {
       position={[0, 0, 0]}
       // rotation={[-1.3, 0, -0.2]}
       // rotation={[-1.2, 0, 0.78]}
-      rotation={[-1.2, 0, Math.PI / 4]}
+      // rotation={[-1.2, 0, Math.PI / 4]}
       //   onClick={e => setActive(!active)}
       onPointerOver={e => setHover(true)}
       onPointerOut={e => setHover(false)}

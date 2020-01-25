@@ -4,6 +4,7 @@ import { MapControls } from "three/examples/jsm/controls/OrbitControls";
 
 import Building from "./Components/Building";
 import Platform from "./Components/Platform";
+import Road from "./Components/Road";
 
 extend({ MapControls });
 const Controls = props => {
@@ -55,9 +56,12 @@ const Canvas = () => {
           shadow-mapSize-height={2048}
         />
         <fog attach="fog" args={["#090b1f", 0, 200]} />
-        <Building position={[0, 1, 0]} buildingType={"A"} />
-        <Building position={[5, 1, 0]} buildingType={"B"} />
+        <Building position={[0, 0, 0]} buildingType={"A"} />
+        <Building position={[0, 5, 0]} buildingType={"B"} />
+        <Building position={[0, 10, 0]} buildingType={"C"} />
+        <Building position={[5, 5, 0]} buildingType={"A"} />
         {/* <BuildingA position={[1.2, 0, 0]} /> */}
+        <Road />
         <Platform position={[0, 0, 0]} />
         <Controls
         // autoRotate
