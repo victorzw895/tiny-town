@@ -54,7 +54,7 @@ const BuildingA = (props: any) => {
     <mesh
       ref={ref}
       {...props}
-      scale={active ? [3, 3, 3] : [2, 2, 2]}
+      scale={active ? [3, 3, 3] : [2, 2, 3]}
       position={props.position}
       // rotation={[-1.27, 0, 0.7]}
       // rotation={[-1.2, 0, 0.78]}

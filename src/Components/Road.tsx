@@ -14,7 +14,7 @@ const Road = (props: any) => {
     <mesh
       ref={ref}
       {...props}
-      scale={active ? [1.5, 1.5, 1.5] : [20, 1, 20]}
+      scale={active ? [1.5, 1.5, 1.5] : [20, 1, 0]}
       position={[0, 2.5, 1]}
       // rotation={[-1.3, 0, -0.2]}
       // rotation={[-1.2, 0, 0.78]}

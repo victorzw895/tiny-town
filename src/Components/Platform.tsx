@@ -23,7 +23,7 @@ const Platform = (props: any) => {
     <mesh
       ref={ref}
       {...props}
-      scale={active ? [1.5, 1.5, 1.5] : [100, 100, 100]}
+      scale={active ? [1.5, 1.5, 1.5] : [100, 100, 0]}
       position={[0, 0, 0]}
       // rotation={[-1.3, 0, -0.2]}
       // rotation={[-1.2, 0, 0.78]}

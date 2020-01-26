@@ -1,22 +1,22 @@
 import React, { useRef } from "react";
 import { Canvas as C, extend, useFrame, useThree } from "react-three-fiber";
-import { MapControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import Building from "./Components/Building";
 import Platform from "./Components/Platform";
 import Road from "./Components/Road";
 
-extend({ MapControls });
+extend({ OrbitControls });
 const Controls = props => {
   const { gl, camera } = useThree();
   const controls = useRef();
   useFrame(() => controls.current.update());
   return (
-    <mapControls
+    <orbitControls
       ref={controls}
       args={[camera, gl.domElement]}
       {...props}
-      enableRotate={false}
+      enableRotate={true}
       enableDamping
       dampingFactor={0.1}
       // rotateSpeed={0.5}
@@ -55,23 +55,23 @@ const Canvas = () => {
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         />
-        <fog attach="fog" args={["#090b1f", 0, 200]} />
-        <Building position={[0, 0, 0]} buildingType={"A"} />
-        <Building position={[0, 5, 0]} buildingType={"B"} />
-        <Building position={[0, 10, 0]} buildingType={"C"} />
-        <Building position={[5, 5, 0]} buildingType={"A"} />
+        {/* <fog attach="fog" args={["#090b1f", 0, 200]} /> */}
+        <Building position={[0, 0, 1.5]} buildingType={"A"} />
+        <Building position={[0, 5, 1.5]} buildingType={"B"} />
+        <Building position={[0, 10, 1.5]} buildingType={"C"} />
+        <Building position={[5, 5, 1.5]} buildingType={"A"} />
         {/* <BuildingA position={[1.2, 0, 0]} /> */}
         <Road />
         <Platform position={[0, 0, 0]} />
         <Controls
-        // autoRotate
-        // enablePan={true}
-        // enableZoom={true}
-        // enableDamping
-        // dampingFactor={0.5}
-        // rotateSpeed={1}
-        // maxPolarAngle={Math.PI / 1.1}
-        // minPolarAngle={Math.PI / 2}
+          // autoRotate
+          // enablePan={true}
+          enableZoom={false}
+          // enableDamping
+          // dampingFactor={0.5}
+          // rotateSpeed={1}
+          // maxPolarAngle={Math.PI / 1.1}
+          // minPolarAngle={Math.PI / 2}
         />
       </C>
     </div>
