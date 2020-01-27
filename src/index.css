@@ -16,7 +16,7 @@ code {
   box-sizing: border-box;
 }
 
-.Canvas {
+.App {
   width: 100vw;
   height: 100vh;
   margin: 0;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useFrame, useThree } from "react-three-fiber";
 
 import { useDrag } from "react-use-gesture";
@@ -29,46 +29,116 @@ function Obj() {
   );
 }
 
+interface Building {
+  color: string;
+  scale: number[];
+  position: number[];
+}
+
 const BuildingA = (props: any) => {
   const ref = useRef();
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
+  const [buildings, setBuildings] = useState<Building[]>([]);
   // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
 
-  const getBuilding = () => {
-    let color;
-    switch (props.buildingType) {
-      case "A":
-        color = "violet";
-        break;
-      case "B":
-        color = "orange";
-        break;
-      default:
-        color = "purple";
+  const generateBuildings = (townScale: any) => {
+    const buildingScale = 3;
+    const betweenBuilding = 2;
+    const NumberBuildings = Math.floor(
+      townScale / (buildingScale + betweenBuilding)
+    );
+    const platformEdge = -townScale / 2;
+
+    const randomNumber = (min: number, max: number) => {
+      return Math.floor(Math.random() * (max - min) + min);
+    };
+
+    const getPosition = (axis: number) => {
+      return platformEdge + (buildingScale / 2) * (axis + 1);
+    };
+
+    // Temporary, need to iterate through an array of coordinates and values
+    for (let x = 0; x < NumberBuildings; x++) {
+      for (let y = 0; y < NumberBuildings; y++) {
+        const height = randomNumber(4, 7);
+        setBuildings([
+          ...buildings,
+          {
+            color: `rgba(${[
+              randomNumber(20, 245),
+              randomNumber(20, 245),
+              randomNumber(20, 245),
+              0.9
+            ].join(",")})`,
+            scale: [3, 3, height],
+            position:
+              x !== 0 || x !== NumberBuildings
+                ? [
+                    getPosition(x) + betweenBuilding,
+                    getPosition(y) + betweenBuilding,
+                    height / 2
+                  ]
+                : [
+                    getPosition(x) +
+                      (townScale % (buildingScale + betweenBuilding)),
+                    getPosition(y) +
+                      (townScale % (buildingScale + betweenBuilding)),
+                    height / 2
+                  ]
+          }
+        ]);
+      }
     }
-    return color;
   };
 
+  useEffect(() => {
+    generateBuildings(props.townScale);
+  }, []);
+
   return (
-    <mesh
-      ref={ref}
-      {...props}
-      scale={active ? [3, 3, 3] : [2, 2, 3]}
-      position={props.position}
-      // rotation={[-1.27, 0, 0.7]}
-      // rotation={[-1.2, 0, 0.78]}
-      onClick={e => setActive(!active)}
-      onPointerOver={e => setHover(true)}
-      onPointerOut={e => setHover(false)}
-    >
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial
-        attach="material"
-        // color={hovered ? "yellow" : "orange"}
-        color={getBuilding()}
-      />
-    </mesh>
+    <group>
+      {buildings.map(building => {
+        return (
+          <mesh
+            ref={ref}
+            {...props}
+            scale={active ? [3.2, 3.2, 3] : building.scale}
+            position={building.position}
+            // rotation={[-1.27, 0, 0.7]}
+            // rotation={[-1.2, 0, 0.78]}
+            onClick={e => setActive(!active)}
+            onPointerOver={e => setHover(true)}
+            onPointerOut={e => setHover(false)}
+          >
+            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            <meshStandardMaterial
+              attach="material"
+              // color={hovered ? "yellow" : "orange"}
+              color={building.color}
+            />
+          </mesh>
+        );
+      })}
+      {/* <mesh
+        ref={ref}
+        {...props}
+        scale={active ? [3.2, 3.2, 3] : props.scale}
+        position={props.position}
+        // rotation={[-1.27, 0, 0.7]}
+        // rotation={[-1.2, 0, 0.78]}
+        onClick={e => setActive(!active)}
+        onPointerOver={e => setHover(true)}
+        onPointerOut={e => setHover(false)}
+      >
+        <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+        <meshStandardMaterial
+          attach="material"
+          // color={hovered ? "yellow" : "orange"}
+          color={props.color}
+        />
+      </mesh> */}
+    </group>
   );
 };
 
