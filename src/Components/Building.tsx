@@ -42,6 +42,8 @@ const BuildingA = (props: any) => {
   const [buildings, setBuildings] = useState<Building[]>([]);
   // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
 
+  const buildingArray: any = [];
+
   const generateBuildings = (townScale: any) => {
     const buildingScale = 3;
     const betweenBuilding = 2;
@@ -55,50 +57,80 @@ const BuildingA = (props: any) => {
     };
 
     const getPosition = (axis: number) => {
-      return platformEdge + (buildingScale / 2) * (axis + 1);
+      return platformEdge + buildingScale * (axis + 1);
     };
 
     // Temporary, need to iterate through an array of coordinates and values
     for (let x = 0; x < NumberBuildings; x++) {
       for (let y = 0; y < NumberBuildings; y++) {
         const height = randomNumber(4, 7);
-        setBuildings([
-          ...buildings,
-          {
-            color: `rgba(${[
-              randomNumber(20, 245),
-              randomNumber(20, 245),
-              randomNumber(20, 245),
-              0.9
-            ].join(",")})`,
-            scale: [3, 3, height],
-            position:
-              x !== 0 || x !== NumberBuildings
-                ? [
-                    getPosition(x) + betweenBuilding,
-                    getPosition(y) + betweenBuilding,
-                    height / 2
-                  ]
-                : [
-                    getPosition(x) +
-                      (townScale % (buildingScale + betweenBuilding)),
-                    getPosition(y) +
-                      (townScale % (buildingScale + betweenBuilding)),
-                    height / 2
-                  ]
-          }
-        ]);
+        buildingArray.push({
+          color: `rgba(${[
+            randomNumber(20, 245),
+            randomNumber(20, 245),
+            randomNumber(20, 245),
+            0.9
+          ].join(",")})`,
+          scale: [3, 3, height],
+          position:
+            y !== 0
+              ? [
+                  getPosition(x) +
+                    (townScale % (buildingScale + betweenBuilding)) +
+                    betweenBuilding,
+                  getPosition(y) +
+                    (townScale % (buildingScale + betweenBuilding)) +
+                    betweenBuilding,
+                  height / 2
+                ]
+              : [
+                  getPosition(x) + betweenBuilding,
+                  getPosition(y) + betweenBuilding,
+                  height / 2
+                ]
+        });
+        // setBuildings([
+        //   ...buildings,
+        //   {
+        //     color: `rgba(${[
+        //       randomNumber(20, 245),
+        //       randomNumber(20, 245),
+        //       randomNumber(20, 245),
+        //       0.9
+        //     ].join(",")})`,
+        //     scale: [3, 3, height],
+        //     position:
+        //       x !== 0 || x !== NumberBuildings
+        //         ? [
+        //             getPosition(x) + betweenBuilding,
+        //             getPosition(y) + betweenBuilding,
+        //             height / 2
+        //           ]
+        //         : [
+        //             getPosition(x) +
+        //               (townScale % (buildingScale + betweenBuilding)),
+        //             getPosition(y) +
+        //               (townScale % (buildingScale + betweenBuilding)),
+        //             height / 2
+        //           ]
+        //   }
+        // ]);
+        console.log(buildings);
       }
     }
   };
 
   useEffect(() => {
     generateBuildings(props.townScale);
+    setBuildings(buildingArray);
   }, []);
+
+  console.log(buildings);
 
   return (
     <group>
       {buildings.map(building => {
+        console.log(buildings);
         return (
           <mesh
             ref={ref}
