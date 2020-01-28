@@ -51,18 +51,20 @@ const BuildingA = (props: any) => {
       townScale / (buildingScale + betweenBuilding)
     );
     const platformEdge = -townScale / 2;
+    const startPoint =
+      platformEdge + (townScale % (buildingScale + betweenBuilding));
 
     const randomNumber = (min: number, max: number) => {
       return Math.floor(Math.random() * (max - min) + min);
     };
 
     const getPosition = (axis: number) => {
-      return platformEdge + buildingScale * (axis + 1);
+      return startPoint + (buildingScale + betweenBuilding) * (axis + 1);
     };
 
     // Temporary, need to iterate through an array of coordinates and values
-    for (let x = 0; x < NumberBuildings; x++) {
-      for (let y = 0; y < NumberBuildings; y++) {
+    for (let x = 0; x < NumberBuildings - 1; x++) {
+      for (let y = 0; y < NumberBuildings - 1; y++) {
         const height = randomNumber(4, 7);
         buildingArray.push({
           color: `rgba(${[
@@ -72,22 +74,7 @@ const BuildingA = (props: any) => {
             0.9
           ].join(",")})`,
           scale: [3, 3, height],
-          position:
-            y !== 0
-              ? [
-                  getPosition(x) +
-                    (townScale % (buildingScale + betweenBuilding)) +
-                    betweenBuilding,
-                  getPosition(y) +
-                    (townScale % (buildingScale + betweenBuilding)) +
-                    betweenBuilding,
-                  height / 2
-                ]
-              : [
-                  getPosition(x) + betweenBuilding,
-                  getPosition(y) + betweenBuilding,
-                  height / 2
-                ]
+          position: [getPosition(x), getPosition(y), height / 2]
         });
         // setBuildings([
         //   ...buildings,

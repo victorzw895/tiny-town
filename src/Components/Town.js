@@ -21,12 +21,12 @@ const Controls = props => {
       enableDamping
       dampingFactor={0.05}
       screenSpacePanning={false}
-      minDistance={100}
-      maxDistance={500}
+      minDistance={60}
+      maxDistance={250}
       // rotateSpeed={0.5}
       maxPolarAngle={(80 * Math.PI) / 180}
       maxZoom={40}
-      minZoom={1.25}
+      minZoom={30}
     />
   );
 };
