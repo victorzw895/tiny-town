@@ -39,18 +39,19 @@ const Town = () => {
         // perspective
         camera={{ position: [0, 0, 50], zoom: 5, up: [0, 0, 1], far: 10000 }}
         style={{ background: "lightblue" }}
-        shadowMap
+        // shadowMap
         // camera={{ position: [0, 0, 15] }}
       >
-        <pointLight intensity={20} position={[-10, -25, -10]} color="#200f20" />
-        <spotLight
+        <pointLight position={[0, 0, 30]} />
+        {/* <pointLight intensity={20} position={[-10, -25, -10]} color="#200f20" /> */}
+        {/* <spotLight
           castShadow
           intensity={4}
           angle={Math.PI / 8}
           position={[15, 25, 5]}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
-        />
+        /> */}
         {/* <fog attach="fog" args={["#090b1f", 0, 200]} /> */}
         <Building
           position={[0, 0, 3]}
@@ -62,7 +63,7 @@ const Town = () => {
         <Building position={[0, 10, 1.5]} color={"purple"} scale={[3, 3, 3]} />
         <Building position={[5, 5, 1.5]} color={"blue"} scale={[3, 3, 3]} /> */}
         {/* <BuildingA position={[1.2, 0, 0]} /> */}
-        <Road />
+        <Road townScale={100} />
         <Platform position={[0, 0, 0]} />
         <Controls
         // autoRotate

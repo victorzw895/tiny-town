@@ -33,11 +33,14 @@ interface Building {
   color: string;
   scale: number[];
   position: number[];
+  height: number;
+  id: string;
 }
 
 const BuildingA = (props: any) => {
   const ref = useRef();
   const [hovered, setHover] = useState(false);
+  const [selected, setSelected] = useState("");
   const [active, setActive] = useState(false);
   const [buildings, setBuildings] = useState<Building[]>([]);
   // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01));
@@ -46,7 +49,7 @@ const BuildingA = (props: any) => {
 
   const generateBuildings = (townScale: any) => {
     const buildingScale = 3;
-    const betweenBuilding = 2;
+    const betweenBuilding = 4;
     const NumberBuildings = Math.floor(
       townScale / (buildingScale + betweenBuilding)
     );
@@ -74,7 +77,9 @@ const BuildingA = (props: any) => {
             0.9
           ].join(",")})`,
           scale: [3, 3, height],
-          position: [getPosition(x), getPosition(y), height / 2]
+          position: [getPosition(x), getPosition(y), height / 2],
+          height,
+          id: `${x}:${y}`
         });
         // setBuildings([
         //   ...buildings,
@@ -122,19 +127,39 @@ const BuildingA = (props: any) => {
           <mesh
             ref={ref}
             {...props}
-            scale={active ? [3.2, 3.2, 3] : building.scale}
+            scale={
+              selected === building.id && active
+                ? [3.2, 3.2, building.height]
+                : building.scale
+            }
             position={building.position}
             // rotation={[-1.27, 0, 0.7]}
             // rotation={[-1.2, 0, 0.78]}
-            onClick={e => setActive(!active)}
-            onPointerOver={e => setHover(true)}
-            onPointerOut={e => setHover(false)}
+            onClick={e => {
+              if (selected === building.id && active) {
+                setSelected("");
+                setActive(!active);
+              } else {
+                setSelected(building.id);
+                setActive(true);
+              }
+            }}
+            // onPointerOver={e => {
+            //   setSelected(building.id);
+            //   setHover(true);
+            // }}
+            // onPointerOut={e => {
+            //   setSelected("");
+            //   setHover(false);
+            // }}
           >
             <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
             <meshStandardMaterial
               attach="material"
-              // color={hovered ? "yellow" : "orange"}
-              color={building.color}
+              color={
+                selected === building.id && hovered ? "#FFCCCB" : building.color
+              }
+              // color={building.color}
             />
           </mesh>
         );
