@@ -22,6 +22,7 @@ const Platform = (props: any) => {
   return (
     <mesh
       ref={ref}
+      receiveShadow
       {...props}
       scale={active ? [1.5, 1.5, 1.5] : [100, 100, 0]}
       position={[0, 0, 0]}
@@ -33,7 +34,7 @@ const Platform = (props: any) => {
       onPointerOut={e => setHover(false)}
     >
       <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshBasicMaterial
+      <meshPhongMaterial
         attach="material"
         color={hovered ? "rgba(156,156,156)" : "rgba(160,160,160)"}
       />

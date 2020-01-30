@@ -60,6 +60,7 @@ const Road = (props: any) => {
         return (
           <mesh
             ref={ref}
+            receiveShadow
             {...props}
             scale={active ? [1.5, 1.5, 1.5] : road.scale}
             position={road.position}
@@ -71,7 +72,7 @@ const Road = (props: any) => {
             onPointerOut={e => setHover(false)}
           >
             <planeBufferGeometry attach="geometry" args={[1, 1, 1]} />
-            <meshBasicMaterial
+            <meshPhongMaterial
               attach="material"
               color={hovered ? "lightseagreen" : "palegreen"}
             />

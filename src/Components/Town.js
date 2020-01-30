@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import * as THREE from "three";
 
 import { Canvas as C, extend, useFrame, useThree } from "react-three-fiber";
 import { MapControls } from "three/examples/jsm/controls/OrbitControls";
@@ -39,16 +40,34 @@ const Town = () => {
         // perspective
         camera={{ position: [0, 0, 50], zoom: 5, up: [0, 0, 1], far: 10000 }}
         style={{ background: "lightblue" }}
-        // shadowMap
+        // onCreated={({ gl }) => (
+        //   (gl.shadowMap.enabled = true),
+        //   (gl.shadowMap.type = THREE.PCFSoftShadowMap)
+        // )}
+        shadowMap
         // camera={{ position: [0, 0, 15] }}
       >
-        <pointLight position={[0, 0, 30]} />
+        {/* <hemisphereLight
+          castShadow
+          physicallyCorrectLights={true}
+          toneMappingExposure={Math.pow(0.7, 5.0)}
+          power={740}
+          position={[0, 0, 30]}
+        /> */}
+        <ambientLight intensity={0.5} />
+        <spotLight
+          intensity={0.6}
+          position={[30, 30, 50]}
+          angle={0.2}
+          penumbra={1}
+          castShadow
+        />
         {/* <pointLight intensity={20} position={[-10, -25, -10]} color="#200f20" /> */}
         {/* <spotLight
           castShadow
-          intensity={4}
+          intensity={1}
           angle={Math.PI / 8}
-          position={[15, 25, 5]}
+          position={[0, 0, 30]}
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         /> */}

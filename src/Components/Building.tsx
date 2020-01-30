@@ -126,6 +126,8 @@ const BuildingA = (props: any) => {
         return (
           <mesh
             ref={ref}
+            castShadow
+            receiveShadow
             {...props}
             scale={
               selected === building.id && active
