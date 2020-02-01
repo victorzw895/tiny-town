@@ -33,12 +33,14 @@ const Controls = props => {
 };
 
 const Town = () => {
+  const d = 8.25;
+  const mouse = useRef({ x: 0, y: 0 });
   return (
     <div className="App">
       <C
         // orthographic
         // perspective
-        camera={{ position: [0, 0, 50], zoom: 5, up: [0, 0, 1], far: 10000 }}
+        camera={{ position: [-8, 12, 8], zoom: 5, up: [0, 0, 1], far: 1000 }}
         style={{ background: "lightblue" }}
         // onCreated={({ gl }) => (
         //   (gl.shadowMap.enabled = true),
@@ -47,6 +49,24 @@ const Town = () => {
         shadowMap
         // camera={{ position: [0, 0, 15] }}
       >
+        <fog attach="fog" args={[0xdfdfdf, 120, 140]} />
+        <hemisphereLight
+          skyColor={"aliceblue"}
+          groundColor={0xffffff}
+          intensity={0.48}
+          position={[0, 50, 0]}
+        />
+        <directionalLight
+          position={[-8, 12, 8]}
+          intensity={0.3}
+          shadow-camera-left={d * -1}
+          shadow-camera-bottom={d * -1}
+          shadow-camera-right={d}
+          shadow-camera-top={d}
+          shadow-camera-near={0.1}
+          shadow-camera-far={1500}
+          castShadow
+        />
         {/* <hemisphereLight
           castShadow
           physicallyCorrectLights={true}
@@ -54,14 +74,16 @@ const Town = () => {
           power={740}
           position={[0, 0, 30]}
         /> */}
-        <ambientLight intensity={0.5} />
+
+        {/* <ambientLight intensity={0.5} />
         <spotLight
           intensity={0.6}
           position={[30, 30, 50]}
           angle={0.2}
           penumbra={1}
           castShadow
-        />
+        /> */}
+
         {/* <pointLight intensity={20} position={[-10, -25, -10]} color="#200f20" /> */}
         {/* <spotLight
           castShadow
@@ -71,6 +93,7 @@ const Town = () => {
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
         /> */}
+
         {/* <fog attach="fog" args={["#090b1f", 0, 200]} /> */}
         <Building
           position={[0, 0, 3]}
